@@ -2,28 +2,25 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../dbConfigs/dbMySql.js';
 
 
-// Model definition for MenusListe
-const MenusListe = sequelize.define('MenusListe', {
+export const Timetable = sequelize.define('Timetable', {
     _id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    menu_name: {
+    day: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    fk_auth: {
-        type: DataTypes.INTEGER,
+    start_time: {
+        type: DataTypes.TIME,
         allowNull: false,
-        references: {
-            model: 'UserAuth', // Name of the referenced model
-            key: '_id', // Key in the referenced model
-        },
+    },
+    end_time: {
+        type: DataTypes.TIME,
+        allowNull: false,
     },
 }, {
-    tableName: 'menus',
+    tableName: 'timetable',
     timestamps: false, // Disable timestamps if not needed
 });
-
-export default MenusListe;

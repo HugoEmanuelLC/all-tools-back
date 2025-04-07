@@ -17,6 +17,10 @@ export const getAllUsers = async (req, res) => {
 export const getAllMenus = async (req, res) => {
     try {
         const menus = await MenusListe.findAll();
+        // pas de fk_auth
+        menus.forEach(menu => {
+            delete menu.dataValues.fk_auth; // Remove the foreign key field from the response
+        });
         res.status(200).json({ status: 200, message: "Menus retrieved successfully", data: menus });
     } catch (error) {
         console.error("Error retrieving menus:", error);
@@ -30,6 +34,10 @@ export const getAllProductsOfMenu = async (req, res) => {
     try {
         const products = await ProductsListe.findAll({
             where: { fk_menu: menuId } // Adjust the condition based on your database schema
+        });
+        // pas de fk_auth
+        products.forEach(product => {
+            delete product.dataValues.fk_auth; // Remove the foreign key field from the response
         });
         res.status(200).json({ status: 200, message: "Products retrieved successfully", data: products });
     } catch (error) {
