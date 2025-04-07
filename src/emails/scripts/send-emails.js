@@ -1,11 +1,5 @@
 // Dependances
-import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-
-
-function createToken(params = { id, secretKey, expiresIn: '1h' }) {
-    return jwt.sign({ id: params.id }, params.secretKey, { expiresIn: params.expiresIn });
-}
 
 
 export function sendEmailForVerification(
@@ -16,24 +10,15 @@ export function sendEmailForVerification(
         subject: "",
         title: "",
         message: "",
-        urlVerify: "",
-        btnText: ""
-    }, 
-    configEmail = {},
-    valueToken = {
-        expiresIn: "1h",
+        urlToVerify: "",
+        btnText: "",
         secretKey: ""
-    }
+    }, 
+    configEmail = {}
 ){
     return new Promise((resolve, reject) => {
         try {
             let transporter = nodemailer.createTransport(configEmail);
-            // secret key
-            let secret = createToken({
-                id: contentEmail.id, 
-                secretKey: valueToken.secretKey, 
-                expiresIn: valueToken.expiresIn
-            });
 
             // message object
             let message = {
@@ -42,13 +27,20 @@ export function sendEmailForVerification(
                 subject: contentEmail.subject,
                 html: `<h1>${contentEmail.title}</h1>
                 <p>${contentEmail.message}</p>
-                <a href="${contentEmail.urlVerify}?secret=${secret}">${contentEmail.btnText}: ${contentEmail.urlVerify}?secret=${secret}</a>`
+                <a href="${contentEmail.urlToVerify}?secret=${contentEmail.secretKey}">${contentEmail.btnText}: ${contentEmail.urlToVerify}?secret=${contentEmail.secretKey}</a>`
             }
+
+            // send email
             transporter.sendMail(message, (err, info) => {
                 if (err) {
-                    reject({status: 500, message: 'email error occurred', info: err, messageSent: message});
+
+                    console.log("ERROR -------------------------");
+                    console.log(err);
+                    console.log("ERROR -------------------------");
+
+                    reject({status: 500, message: 'email error occurred, check your content email'});
                 } else {
-                    resolve({status: 201, message: 'email sent', info: {accepted: info.accepted}, messageSent: message});
+                    resolve({status: 201, message: 'email sent to '+info.accepted});
                 }
             });
             

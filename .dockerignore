@@ -1,0 +1,12 @@
+# Ignorer le dossier node_modules (courant pour les projets JavaScript)
+node_modules/
+
+# Ignorer le fichier .env (contient les variables d'environnement)
+.env
+
+# Ignorer les fichiers journaux
+*.log
+
+.gitignore
+.git
+Dockerfile
