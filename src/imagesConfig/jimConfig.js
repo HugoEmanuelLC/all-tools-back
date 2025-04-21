@@ -28,27 +28,27 @@ const jimpConfig = async (req, res, next) => {
         const originalHeight = image.bitmap.height;
         console.log('Original dimensions:', originalWidth, 'x', originalHeight, 'pixels');
 
-        if (originalWidth > 1000 && originalHeight > 1000) {
-            console.log("----------------------- File resized with Jimp ----------------------");
-            console.log('Image is too wide and too tall, resizing...');
-            image.resize(1000, 1000); // Redimensionner l'image à 1000px de large et de haut
+        // if (originalWidth > 1000 && originalHeight > 1000) {
+        //     console.log("----------------------- File resized with Jimp ----------------------");
+        //     console.log('Image is too wide and too tall, resizing...');
+        //     image.resize(1000, 1000); // Redimensionner l'image à 1000px de large et de haut
             
-        } else if (originalWidth > 1000) {
-            console.log("----------------------- File resized with Jimp ----------------------");
-            console.log('Image is too wide, resizing...');
-            image.resize(1000, Jimp.AUTO); // Redimensionner l'image à 1000px de large, hauteur auto
+        // } else if (originalWidth > 1000) {
+        //     console.log("----------------------- File resized with Jimp ----------------------");
+        //     console.log('Image is too wide, resizing...');
+        //     image.resize(1000, Jimp.AUTO); // Redimensionner l'image à 1000px de large, hauteur auto
             
-        }else if (originalHeight > 1000) {
-            console.log("----------------------- File resized with Jimp ----------------------");
-            console.log('Image is too tall, resizing...');
-            image.resize(Jimp.AUTO, 1000); // Redimensionner l'image à 1000px de haut, largeur auto
-        }
+        // }else if (originalHeight > 1000) {
+        //     console.log("----------------------- File resized with Jimp ----------------------");
+        //     console.log('Image is too tall, resizing...');
+        //     image.resize(Jimp.AUTO, 1000); // Redimensionner l'image à 1000px de haut, largeur auto
+        // }
 
         
         // Redimensionnement avec Jimp
         // image.resize({ w: 1000, h: Jimp.AUTO}) // Redimensionner l'image à 1000px de large, hauteur auto
 
-        console.log("---------------------- File resized and saved ----------------------");
+        // console.log("---------------------- File resized and saved ----------------------");
         await image.write(resizeFilePath); // Enregistrer l'image redimensionnée
 
         console.log("---------------------- File resized successfully ----------------------");

@@ -18,7 +18,7 @@ export const fsVerifSizeImage = async (req, res, next) => {
 
         console.log("File size in MB:", fileSizeInMegabytes);
 
-        if (fileSizeInMegabytes > 0.5) { // 5 Mo
+        if (fileSizeInMegabytes > 0.5) { // 0.5 Mo
             return res.status(400).json({ status: 400, message: "file size too big" })
         }
 

@@ -8,7 +8,7 @@ import * as createController from '../dataBases/controllers/createController.js'
 import * as updateController from '../dataBases/controllers/updateController.js'
 
 
-const route = Router()
+const routeFront = Router()
 
 
 const list = [
@@ -38,13 +38,13 @@ function modelFncForSendResToClient(req, res) {
 
 
 
-route.use( modelObjectBodyForSessionForReq )
-route.get('/', (req, res) => res.status(200).json({ message: "List d'access", list: list }) )
+routeFront.use( modelObjectBodyForSessionForReq )
+routeFront.get('/', (req, res) => res.status(200).json({ message: "List d'access", list: list }) )
 
 
 
 // Menus
-route.get('/menus-list', 
+routeFront.get('/menus-list', 
     selectValuesController.selectValuesAllMenusListFromDB, modelFncForSendResToClient 
 )
 
@@ -54,13 +54,13 @@ route.get('/menus-list',
 
 
 // test Sequelize
-route.get('/menus',
+routeFront.get('/menus',
     selectController.getAllMenus, modelFncForSendResToClient 
 )
-route.get('/products/:menuId',
+routeFront.get('/products/:menuId',
     selectController.getAllProductsOfMenu, modelFncForSendResToClient 
 )
-route.get('/new-menu',
+routeFront.get('/new-menu',
     (req, res, next) => {
         req.body.menu_name = "test"
         req.body.configDB.infosFromDB = { _id: 263}
@@ -68,7 +68,7 @@ route.get('/new-menu',
     },
     createController.createMenu, modelFncForSendResToClient
 )
-route.get('/new-product/:menuId',
+routeFront.get('/new-product/:menuId',
     (req, res, next) => {
         req.body.product_name = "test"
         req.body.product_price = 10
@@ -86,22 +86,22 @@ route.get('/new-product/:menuId',
 
 
 // Products
-route.get('/products-from-menu/:params', 
+routeFront.get('/products-from-menu/:params', 
     selectValuesController.selectValuesProductsListFromMenuFromDB, modelFncForSendResToClient 
 )
 
 
 // TimeTable
-route.get('/timetable-list', 
+routeFront.get('/timetable-list', 
     selectValuesController.selectValuesTimeTableFromDB, modelFncForSendResToClient 
 )
 
 
 // Images
-route.get('/images-list',
+routeFront.get('/images-list',
     selectValuesController.selectValuesImagesAllListFromDB, modelFncForSendResToClient
 )
 
 
 
-export default route
+export default routeFront

@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../dbConfigs/dbMySql.js';
+import { sequelize } from '../dbConfigs/sequelizeMySql.js';
 
 
 // Model definition for MenusListe
